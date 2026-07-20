@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum RiskTier {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+model Customer {
+  id              String      @id @default(uuid())
+  accountNode     String      @unique
+  industry        String
+  monthlySpending Float
+  inactivityDays  Int
+  complaintCount  Int
+  usageFrequency  Int
+  createdAt       DateTime    @default(now())
+
+  predictions     Prediction[]
+}
+
+model Prediction {
+  id                 String    @id @default(uuid())
+  customerId         String
+  customer           Customer  @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  churnProbability   Float
+  riskClassification RiskTier
+  shapExplanations   Json
+  calculatedAt       DateTime  @default(now())
+}
+
+enum Role {
+  ADMIN      // Can execute CRUD, Batch calculations, and clear logs
+  ANALYST    // Can run single node inferences and view dashboards
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String   // Hashed password string
+  role      Role     @default(ANALYST)
+  createdAt DateTime @default(now())
+}
