@@ -38,15 +38,15 @@ export default function AnalyzeButton({ customerId }) {
     };
 
     return (
-        <div className="flex items-center justify-end gap-3 font-mono">
+        <div className="flex items-center justify-end gap-3 font-mono" style={{ fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif" }}>
             {/* 🛡️ Aligned Client Risk-Tier Metrics Badges */}
             {result && !hasError && (
                 <span className={`text-[10px] font-bold px-2 py-0.5 rounded border transition-all animate-in fade-in duration-200 ${
-                    result.tier === "CRITICAL"
-                        ? "bg-rose-500/5 text-rose-400 border-rose-500/20"
-                        : result.tier === "ELEVATED"
-                            ? "bg-amber-500/5 text-amber-400 border-amber-500/20"
-                            : "bg-emerald-500/5 text-emerald-400 border-emerald-500/20"
+                    result.tier === "CRITICAL" || result.tier === "HIGH"
+                        ? "bg-rose-500/10 text-rose-300 border-rose-500/30"
+                        : result.tier === "ELEVATED" || result.tier === "MEDIUM"
+                            ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
+                            : "bg-emerald-500/10 text-emerald-300 border-emerald-500/30"
                     }`}>
                     {result.tier} {" // "} {result.prob}%
                 </span>
@@ -54,7 +54,7 @@ export default function AnalyzeButton({ customerId }) {
 
             {/* 🛑 Inline Engine Error Tracker (Replaces System Alert Window) */}
             {hasError && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded border bg-rose-950/20 text-rose-400 border-rose-900/60 animate-in fade-in duration-150">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded border bg-rose-500/10 text-rose-300 border-rose-500/20 animate-in fade-in duration-150">
                     ✕ ENGINE_FAIL
                 </span>
             )}
@@ -65,8 +65,8 @@ export default function AnalyzeButton({ customerId }) {
                 disabled={isPending}
                 className={`text-[10px] font-bold px-3 py-1 rounded border tracking-tight uppercase transition-all select-none disabled:opacity-40 ${
                     isPending
-                        ? "border-amber-800 bg-amber-950/20 text-amber-400 cursor-not-allowed animate-pulse"
-                        : "border-zinc-800 bg-zinc-900/50 text-zinc-300 hover:text-zinc-100 hover:bg-zinc-900 hover:border-zinc-700 cursor-pointer"
+                        ? "border-amber-500/40 bg-amber-500/10 text-amber-300 cursor-not-allowed animate-pulse"
+                        : "border-[#567C8D]/40 bg-[#567C8D]/10 text-[#C8D9E6] hover:text-white hover:bg-[#567C8D]/20 cursor-pointer"
                     }`}
             >
                 {isPending ? (

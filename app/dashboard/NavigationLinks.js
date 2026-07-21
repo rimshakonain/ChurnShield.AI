@@ -7,6 +7,7 @@ export default function NavigationLinks() {
   const pathname = usePathname();
 
   const navItems = [
+    { index: "[H]", label: "HOME_LANDING", path: "/" },
     { index: "[0]", label: "OVERVIEW_MONITOR", path: "/dashboard" },
     { index: "[1]", label: "RISK_STRATIFICATION", path: "/dashboard/predictions" },
     { index: "[2]", label: "K_MEANS_CLUSTERS", path: "/dashboard/segments" }
